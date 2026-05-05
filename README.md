@@ -39,7 +39,19 @@ Yaygın yöntemler:
 Bu projede basitliği nedeniyle **leader-follower yaklaşımı** kullanılacaktır.
 
 ---
+## Proje Yapısı
 
+Proje aşağıdaki modüler yapıda tasarlanmıştır:
+
+- environment → 2D grid ve engeller
+- agents → robot sınıfları (lider ve takipçi)
+- algorithms → A* ve Q-learning implementasyonu
+- formation → formasyon tanımları (üçgen, kare)
+- utils → görselleştirme ve yardımcı fonksiyonlar
+
+Bu yapı, sistemin genişletilebilir ve anlaşılabilir olmasını sağlar.
+
+---
 ###  A* Algoritması
 
 A* algoritması, grid tabanlı ortamlarda en kısa yolu bulmak için kullanılan yaygın bir arama algoritmasıdır.
