@@ -1,3 +1,5 @@
+# agents/follower.py
+
 class Follower:
     def __init__(self, start_pos, offset):
         self.position = start_pos
@@ -12,15 +14,13 @@ class Follower:
         x, y = self.position
         tx, ty = target
 
-        # basit yaklaşma (greedy)
-        if x < tx:
-            x += 1
-        elif x > tx:
-            x -= 1
+        dx = tx - x
+        dy = ty - y
 
-        if y < ty:
-            y += 1
-        elif y > ty:
-            y -= 1
+        if abs(dx) > abs(dy):
+            x += 1 if dx > 0 else -1
+        elif dy != 0:
+            y += 1 if dy > 0 else -1
 
         self.position = (x, y)
+

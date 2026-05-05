@@ -11,25 +11,28 @@ def main():
     grid = Grid(10, 10)
 
     grid.obstacles = {
-        (3, 0), (3, 1), (3, 2), (3, 3),
-        (3, 4), (3, 5)
+    (6, 2), (6, 3), (6, 4), (6, 5),
+    (6, 6)
     }
 
-    start = (0, 0)
-    goal = (7, 7)
+    start = (4, 4)
+    goal = (8, 8)
 
     leader = Leader(start)
 
     path = astar(grid, start, goal)
+    if not path:
+        print("Hedefe giden yol bulunamadı. Engel veya başlangıç/hedef konumlarını kontrol et.")
+        return
     leader.set_path(path.copy())
 
     offsets = get_triangle_offsets()
 
     followers = [
-        Follower(start, offsets[1]),
-        Follower(start, offsets[2]),
-        Follower(start, offsets[3]),
+    Follower((start[0] + offsets[1][0], start[1] + offsets[1][1]), offsets[1]),
+    Follower((start[0] + offsets[2][0], start[1] + offsets[2][1]), offsets[2]),
     ]
+
 
     plt.ion()
 
