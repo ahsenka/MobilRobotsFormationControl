@@ -29,8 +29,8 @@ def main():
     offsets = get_triangle_offsets()
 
     followers = [
-    Follower((start[0] + offsets[1][0], start[1] + offsets[1][1]), offsets[1]),
-    Follower((start[0] + offsets[2][0], start[1] + offsets[2][1]), offsets[2]),
+    Follower((start[0] + offsets[1][0], start[1] + offsets[1][1]), offsets[1], mode="baseline"),
+    Follower((start[0] + offsets[2][0], start[1] + offsets[2][1]), offsets[2], mode="baseline"),
     ]
 
 
