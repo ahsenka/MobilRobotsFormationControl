@@ -85,6 +85,12 @@ MobilRobotsFormationControl/
 
 Aşağıdaki GIF, lider robotun A* algoritması ile hedefe ilerlediği ve follower robotların Q-learning tabanlı hareket davranışı ile formasyonu korumaya çalıştığı simülasyonu göstermektedir.
 
+Bu aşamada lider robot, A* algoritması ile hedef noktaya ulaşabilmektedir. Takipçi robotlar için Q-learning tabanlı hareket davranışı entegre edilmiştir.
+
+Ancak mevcut Q-learning yapısında takipçi robotlar üçgen formasyonu her adımda kararlı şekilde koruyamamaktadır. Bu nedenle sonraki geliştirme adımlarında ödül fonksiyonu, durum tanımı ve eğitim süreci iyileştirilerek formasyon kararlılığı artırılacaktır.
+
+İlk hedef, üçgen formasyonun daha stabil hale getirilmesidir. Ardından aynı yapı kare formasyon için de test edilecektir.
+
 ![Simulation](simulation.gif)
 ---
 ###  A* Algoritması
