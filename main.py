@@ -1,6 +1,8 @@
 from environment.grid import Grid
 from algorithms.astar import astar
 from agents.leader import Leader
+from agents.follower import Follower
+from formation.triangle import get_triangle_offsets
 from utils.visualization import draw_grid
 import matplotlib.pyplot as plt
 
@@ -21,13 +23,23 @@ def main():
     path = astar(grid, start, goal)
     leader.set_path(path.copy())
 
-    print("A* Path:", path)
+    offsets = get_triangle_offsets()
+
+    followers = [
+        Follower(start, offsets[1]),
+        Follower(start, offsets[2]),
+        Follower(start, offsets[3]),
+    ]
 
     plt.ion()
 
     while leader.path:
         leader.move()
-        draw_grid(grid, leader, goal, path)
+
+        for f in followers:
+            f.move(leader.position)
+
+        draw_grid(grid, leader, followers, goal, path)
 
     plt.ioff()
     plt.show()
