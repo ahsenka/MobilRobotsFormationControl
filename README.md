@@ -50,7 +50,35 @@ Proje aşağıdaki modüler yapıda tasarlanmıştır:
 - utils → görselleştirme ve yardımcı fonksiyonlar
 
 Bu yapı, sistemin genişletilebilir ve anlaşılabilir olmasını sağlar.
+## Proje Mimarisi
 
+```text
+MobilRobotsFormationControl/
+│
+├── README.md
+├── requirements.txt
+├── main.py
+│
+├── environment/
+│   ├── grid.py
+│   └── obstacle.py
+│
+├── agents/
+│   ├── base_agent.py
+│   ├── leader.py
+│   └── follower.py
+│
+├── algorithms/
+│   ├── astar.py
+│   └── qlearning.py
+│
+├── formation/
+│   ├── triangle.py
+│   └── square.py
+│
+├── utils/
+│   ├── visualization.py
+│   └── helpers.py
 ---
 ###  A* Algoritması
 
