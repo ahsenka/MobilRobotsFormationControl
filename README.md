@@ -79,6 +79,13 @@ MobilRobotsFormationControl/
 ├── utils/
 │   ├── visualization.py
 │   └── helpers.py
+
+```
+## Simülasyon Çıktısı
+
+Aşağıdaki GIF, lider robotun A* algoritması ile hedefe ilerlediği ve follower robotların Q-learning tabanlı hareket davranışı ile formasyonu korumaya çalıştığı simülasyonu göstermektedir.
+
+![Simulation](simulation.gif)
 ---
 ###  A* Algoritması
 
