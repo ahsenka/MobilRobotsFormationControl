@@ -39,17 +39,29 @@ def draw_frame(ax, grid, leader, followers, goal, path):
     ax.grid(True)
     ax.legend(loc="upper right")
 
+def save_reward_plot(episode_rewards):
+    plt.figure()
+    plt.plot(episode_rewards)
+    plt.xlabel("Episode")
+    plt.ylabel("Total Reward")
+    plt.title("Q-learning Training Reward")
+    plt.grid(True)
+    plt.savefig("training_rewards.png")
+    plt.close()
 
 def main():
-    trained_q = train_follower(episodes=500)
+    trained_q, episode_rewards = train_follower(episodes=3000)
+    save_reward_plot(episode_rewards)
+    grid = Grid(20, 20)
 
-    grid = Grid(10, 10)
     grid.obstacles = {
-        (6, 2), (6, 3), (6, 4), (6, 5), (6, 6)
+        (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8),
+        (12, 10), (12, 11), (12, 12), (12, 13), (12, 14),
+        (5, 13), (6, 13), (7, 13), (8, 13)
     }
 
-    start = (4, 4)
-    goal = (8, 8)
+    start = (3, 3)
+    goal = (17, 17)
 
     leader = Leader(start, robot_id="leader")
 
@@ -64,19 +76,19 @@ def main():
     offsets = get_triangle_offsets()
 
     followers = [
-        Follower(
-            (start[0] + offsets[1][0], start[1] + offsets[1][1]),
-            offsets[1],
-            robot_id="follower_1",
-            mode="qlearning"
-        ),
-        Follower(
-            (start[0] + offsets[2][0], start[1] + offsets[2][1]),
-            offsets[2],
-            robot_id="follower_2",
-            mode="qlearning"
-        ),
-    ]
+    Follower(
+        (start[0] + offsets[1][0], start[1] + offsets[1][1]),
+        offsets[1],
+        robot_id="follower_1",
+        mode="qlearning"
+    ),
+    Follower(
+        (start[0] + offsets[2][0], start[1] + offsets[2][1]),
+        offsets[2],
+        robot_id="follower_2",
+        mode="qlearning"
+    ),
+]
 
     for follower in followers:
         follower.q = trained_q
@@ -102,12 +114,12 @@ def main():
         draw_frame(ax, grid, leader, followers, goal, path)
 
     anim = FuncAnimation(
-        fig,
-        update,
-        frames=len(path),
-        interval=400,
-        repeat=False
-    )
+    fig,
+    update,
+    frames=len(path) + 10,
+    interval=300,
+    repeat=False
+)
 
     anim.save("simulation.gif", writer=PillowWriter(fps=2))
 

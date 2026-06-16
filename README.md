@@ -93,6 +93,13 @@ Ancak mevcut Q-learning yapısında takipçi robotlar üçgen formasyonu her ad�
 
 ![Simulation](simulation.gif)
 ---
+
+## 📈 Q-learning Eğitim Ödül Grafiği
+
+Aşağıdaki grafik, Q-learning ajanının eğitim sürecinde episode bazlı toplam ödül değişimini göstermektedir.
+
+![Training Rewards](training_rewards.png)
+---
 ###  A* Algoritması
 
 A* algoritması, grid tabanlı ortamlarda en kısa yolu bulmak için kullanılan yaygın bir arama algoritmasıdır.
