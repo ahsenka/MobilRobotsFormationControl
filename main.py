@@ -6,6 +6,7 @@ from formation.triangle import get_triangle_offsets
 from training import train_follower
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
+from communication.communication_bus import CommunicationBus
 
 
 def draw_frame(ax, grid, leader, followers, goal, path):
@@ -26,8 +27,9 @@ def draw_frame(ax, grid, leader, followers, goal, path):
         ax.scatter(ox, oy, marker="s", s=300)
 
     ax.scatter(leader.position[0], leader.position[1], s=500, label="Leader")
-    for f in followers:
-        ax.scatter(f.position[0], f.position[1], s=500, label="Follower")
+
+    for follower in followers:
+        ax.scatter(follower.position[0], follower.position[1], s=500, label=follower.robot_id)
 
     ax.scatter(goal[0], goal[1], s=500, marker="*", label="Goal")
 
@@ -49,7 +51,8 @@ def main():
     start = (4, 4)
     goal = (8, 8)
 
-    leader = Leader(start)
+    leader = Leader(start, robot_id="leader")
+
     path = astar(grid, start, goal)
 
     if not path:
@@ -61,25 +64,50 @@ def main():
     offsets = get_triangle_offsets()
 
     followers = [
-        Follower((start[0] + offsets[1][0], start[1] + offsets[1][1]), offsets[1], mode="qlearning"),
-        Follower((start[0] + offsets[2][0], start[1] + offsets[2][1]), offsets[2], mode="qlearning"),
+        Follower(
+            (start[0] + offsets[1][0], start[1] + offsets[1][1]),
+            offsets[1],
+            robot_id="follower_1",
+            mode="qlearning"
+        ),
+        Follower(
+            (start[0] + offsets[2][0], start[1] + offsets[2][1]),
+            offsets[2],
+            robot_id="follower_2",
+            mode="qlearning"
+        ),
     ]
 
-    for f in followers:
-        f.q = trained_q
+    for follower in followers:
+        follower.q = trained_q
+
+    communication_bus = CommunicationBus()
+
+    leader.communicate(communication_bus)
+
+    for follower in followers:
+        follower.communicate(communication_bus)
 
     fig, ax = plt.subplots()
 
     def update(frame):
         if leader.path:
             leader.move()
+            leader.communicate(communication_bus)
 
-            for f in followers:
-                f.move(leader.position)
+            for follower in followers:
+                follower.move(communication_bus)
+                follower.communicate(communication_bus)
 
         draw_frame(ax, grid, leader, followers, goal, path)
 
-    anim = FuncAnimation(fig, update, frames=len(path), interval=400, repeat=False)
+    anim = FuncAnimation(
+        fig,
+        update,
+        frames=len(path),
+        interval=400,
+        repeat=False
+    )
 
     anim.save("simulation.gif", writer=PillowWriter(fps=2))
 
