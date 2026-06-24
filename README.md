@@ -134,6 +134,24 @@ Q-learning ile öğrenmeye çalışacaktır.
 
 ---
 
+## 3D Q-learning Formasyon Simülasyonu
+
+3D ortamda lider robot 3D A* algoritması ile hedefe ilerlemektedir. Takipçi robotlar Q-learning ile liderin etrafındaki 3D formasyon offsetlerine yaklaşmayı öğrenmektedir. Robotlar arası pozisyon paylaşımı için CommunicationBus3D kullanılmıştır.
+
+### 3D Üçgen Formasyon
+
+![3D Triangle Q-learning](simulation_3d_triangle_qlearning.gif)
+
+![3D Triangle Reward](training_rewards_3d_triangle.png)
+
+### 3D Tetrahedron Formasyon
+
+![3D Tetrahedron Q-learning](simulation_3d_tetrahedron_qlearning.gif)
+
+![3D Tetrahedron Reward](training_rewards_3d_tetrahedron.png)
+
+---
+
 ##  Literatür Taraması
 
 Çoklu robot formasyon kontrolü ve yol planlama problemleri, robotik ve yapay zeka alanında geniş şekilde çalışılmıştır.
